@@ -82,25 +82,7 @@ int main(int argc, char* argv[]) {
 
             newWritePos = readpos + results.position(0);
             email_file.seekp(newWritePos);
-            string /* temp*/ stimestamp = modTimestamp(setbackHours,results.str(),true, false); /*sanitizeTimestamp(results.str(),false);
-            dateOfMail<<temp;
-            dateOfMail.clear();
-            //cout << dateOfMail.str() << "\n";
-            dateOfMail>>get_time(&dateMod, "%a, %d %b %Y %H:%M:%S");
-            dateOfMail << "";
-            dateOfMail.clear();
-            dateOfMail.str(string());
-            modTime=mktime(&dateMod);
-            modTime = modTime-setbackHours*60*60;
-            bool tooshort = (temp.length()==24);
-            if(tooshort)
-            {
-                    strftime(timestamp, 26, "%a,%e %b %Y %X", localtime(&modTime));
-            }
-            else {
-                strftime(timestamp, 26, "%a, %d %b %Y %X", localtime(&modTime));
-            }
-            stimestamp=timestamp;*/
+            string stimestamp = modTimestamp(setbackHours,results.str(),true, false); 
             cout <<"new timestamp: "<< stimestamp << std::endl;
             email_file << stimestamp;
             email_file.seekg(readpos+currentline.length());
@@ -120,30 +102,7 @@ int main(int argc, char* argv[]) {
                 newWritePos = oldreadpos + results.position(0);
                 email_file.seekp(newWritePos);
                 unsigned long oldsize = results.str().size();
-                string /*temp*/stimestamp = modTimestamp(setbackHours,results.str(),true,true);/*sanitizeTimestamp(results.str(),true);
-                dateOfMail<<temp;
-                dateOfMail.clear();
-                dateOfMail>>get_time(&dateMod,"%a, %d %b %Y %H:%M:%S");
-                dateOfMail << "";
-                dateOfMail.clear();
-                dateOfMail.str(string());
-                //dateMod.tm_hour= dateMod.tm_hour + dateMod.tm_gmtoff/60/60;
-                //dateMod.tm_gmtoff=0;
-                //dateMod.tm_zone="UTC";
-                modTime=mktime(&dateMod);
-                modTime = modTime-setbackHours*60*60;
-                temp.resize(oldsize,' ');
-                bool tooshort = (temp.length()==24);
-                if(tooshort)
-                {
-                    strftime(timestamp, 26, "%a,%e %b %Y %X", localtime(&modTime));
-                    timestamp[24]= ' ';
-                }
-                else {
-                    strftime(timestamp, 26, "%a, %d %b %Y %X", localtime(&modTime));
-                    timestamp[25]= ' ';
-                }
-                stimestamp = timestamp; */
+                string stimestamp = modTimestamp(setbackHours,results.str(),true,true);
                 cout <<"new timestamp: "<< stimestamp << std::endl;
                 email_file << stimestamp;
                 matches++;
