@@ -50,8 +50,6 @@ int main(int argc, char* argv[]) {
     //strftime(timestamp,26,"%a,%e %b %Y %X",localtime(&modTime));
     string stimestamp;
     cout << stimestamp << "\n";
-    struct timeval timeout;
-    timeout.tv_sec=2;
     int sockfd = socket(AF_INET,SOCK_DGRAM,0);
     struct sockaddr_in serv, client;
     serv.sin_family = AF_INET;
@@ -82,7 +80,7 @@ int main(int argc, char* argv[]) {
 
             newWritePos = readpos + results.position(0);
             email_file.seekp(newWritePos);
-            string stimestamp = modTimestamp(setbackHours,results.str(),true, false); 
+            stimestamp = modTimestamp(setbackHours,results.str(),true, false);
             cout <<"new timestamp: "<< stimestamp << std::endl;
             email_file << stimestamp;
             email_file.seekg(readpos+currentline.length());
@@ -102,7 +100,7 @@ int main(int argc, char* argv[]) {
                 newWritePos = oldreadpos + results.position(0);
                 email_file.seekp(newWritePos);
                 unsigned long oldsize = results.str().size();
-                string stimestamp = modTimestamp(setbackHours,results.str(),true,true);
+                stimestamp = modTimestamp(setbackHours,results.str(),true,true);
                 cout <<"new timestamp: "<< stimestamp << std::endl;
                 email_file << stimestamp;
                 matches++;

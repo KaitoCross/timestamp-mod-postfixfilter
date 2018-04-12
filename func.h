@@ -43,12 +43,10 @@ string modTimestamp(int setbackHours, string timestamp, bool needsSanitiziation,
     char tempTimestamp[26]="";
     time_t modTime;
     long int length = timestamp.length();
-    //string temp;
     tm dateMod;
     stringstream dateOfMail;
     if(needsSanitiziation) {
         dateOfMail << sanitizeTimestamp(timestamp, removeLinebreak);
-        //temp = dateOfMail.str();
     } else
     {
         dateOfMail<<timestamp;
