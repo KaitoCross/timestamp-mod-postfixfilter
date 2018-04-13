@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstdio>
+#include <cstring>
 #include <regex>
 #include <fstream>
 #include <vector>
@@ -116,5 +117,6 @@ int main(int argc, char* argv[]) {
     }
     cout << matches << std::endl;
     email_file.close();
+    sent = sendto(sockfd,"MAILD",5,0,(struct sockaddr *)&serv,m);
     return 0;
 }
