@@ -25,15 +25,13 @@ int main(int argc, char* argv[]) {
     string filename = "/home/kaito/email.eml";
     string StampPat = "[MTWFS][ouehra][neduit]\\x2C(\\s+|\\S)[0-9]+\\s[A-S][a-z][a-z]((\\s)|(\\r\\s))[0-2][0-9][0-9][0-9]((\\s)|(\\r\\s))[0-2][0-9]\\x3A[0-5][0-9]\\x3A[0-5][0-9]";
     regex DatePat(StampPat,regex_constants::ECMAScript);
-    if (argc == 1)
+    if (argc == 2)
     {
-        filename=argv[0];
+        filename=argv[1];
     }
     string currentline ="Hello world";
     string previousline = "";
     string memoryForFileLines="";
-    //stringstream dateOfMail;
-    //char timestamp[26];
     smatch results;
     fstream email_file;
     email_file.open(filename,fstream::in | fstream::out);
@@ -43,12 +41,6 @@ int main(int argc, char* argv[]) {
     int matches = 0;
     int setbackHours = 0;
     bool previousmatch = false;
-    //time_t modTime;
-    //time(&modTime);
-
-    //datiming = localtime()(&modTime);
-
-    //strftime(timestamp,26,"%a,%e %b %Y %X",localtime(&modTime));
     string stimestamp;
     cout << stimestamp << "\n";
     int sockfd = socket(AF_INET,SOCK_DGRAM,0);
@@ -70,9 +62,8 @@ int main(int argc, char* argv[]) {
         char *endOfBuffer = &buffer[10];
         setbackHours = (int)strtol(buffer+6,&endOfBuffer,10);
     }
-    while (getline(email_file,currentline) /*&& currentline.find("Content-Type")*/)
+    while (getline(email_file,currentline) && currentline.find("Content-Type"))
     {
-        //tm dateMod;
         memoryForFileLines = "";
         memoryForFileLines.append(currentline);
         bool match = regex_search(memoryForFileLines,results,DatePat,regex_constants::match_any);
