@@ -52,7 +52,16 @@ string modTimestamp(int setbackHours, string timestamp, bool needsSanitiziation,
         dateOfMail<<timestamp;
     }
     dateOfMail.clear();
-    dateOfMail>>get_time(&dateMod, "%a, %d %b %Y %H:%M:%S");
+    if(dateOfMail.str().size() < 25)
+    {
+    string missingZero = dateOfMail.str();
+    missingZero.replace(4,1,string("0"));
+    dateOfMail.str(missingZero);
+    dateOfMail>>get_time(&dateMod, "%a,%d %b %Y %H:%M:%S");
+    }
+    else{
+    	dateOfMail>>get_time(&dateMod, "%a, %d %b %Y %H:%M:%S");
+	}
     dateOfMail << "";
     dateOfMail.clear();
     dateOfMail.str(string());

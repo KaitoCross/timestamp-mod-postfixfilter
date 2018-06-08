@@ -22,7 +22,7 @@ These tools are distributed in the hope that it will be useful, but WITHOUT ANY 
 */
 using namespace std;
 int main(int argc, char* argv[]) {
-    string filename = "/home/kaito/email.eml";
+    string filename = "/srv/dmail/test.eml";
     string StampPat = "[MTWFS][ouehra][neduit]\\x2C(\\s+|\\S)[0-9]+\\s[A-S][a-z][a-z]((\\s)|(\\r\\s))[0-2][0-9][0-9][0-9]((\\s)|(\\r\\s))[0-2][0-9]\\x3A[0-5][0-9]\\x3A[0-5][0-9]";
     regex DatePat(StampPat,regex_constants::ECMAScript);
     if (argc == 2)
