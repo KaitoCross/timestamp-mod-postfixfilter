@@ -49,7 +49,7 @@ string modTimestamp(int setbackHours, string timestamp, bool needsSanitiziation,
         dateOfMail << sanitizeTimestamp(timestamp, removeLinebreak);
     } else
     {
-        dateOfMail<<timestamp;
+	 dateOfMail << sanitizeTimestamp(timestamp, false);
     }
     dateOfMail.clear();
     if(dateOfMail.str().size() < 25)

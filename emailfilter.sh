@@ -22,7 +22,7 @@ cat >in.$$ || {
     echo Cannot save mail to file; exit $EX_TEMPFAIL; }
 
 #Specify your content filter here.
-/srv/dmail/dmail-content-filter in.$$ || {
+/srv/dmail/timestamp-mod-postfixfilter/dmail-filter in.$$ || {
    echo Message content rejected; exit $EX_UNAVAILABLE; }
 
 $SENDMAIL "$@" <in.$$
