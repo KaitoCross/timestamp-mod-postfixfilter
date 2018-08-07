@@ -62,25 +62,26 @@ int main(int argc, char* argv[]) {
         char *endOfBuffer = &buffer[10];
         setbackHours = (int)strtol(buffer+6,&endOfBuffer,10);
     }
-    while (getline(email_file,currentline) && currentline.find("Content-Type"))
+    while (getline(email_file,currentline) && currentline.find("Content-Type")) //Search until Content Type is being mentioned (to restrict timestamp search to email headers)
     {
         memoryForFileLines = "";
         memoryForFileLines.append(currentline);
-        bool match = regex_search(memoryForFileLines,results,DatePat,regex_constants::match_any);
+        bool match = regex_search(memoryForFileLines,results,DatePat,regex_constants::match_any); //search for timestamps matching our regular expression
         if (match) {
-            cout << "Found on position " << results.position(0) << " " << memoryForFileLines << "\n";
-
-            newWritePos = readpos + results.position(0);
+            //cout << "Found on position " << results.position(0) << " " << memoryForFileLines << "\n";
+            newWritePos = readpos + results.position(0); //Overwrite the timestamp at it's original position in the file
             email_file.seekp(newWritePos);
             stimestamp = modTimestamp(setbackHours,results.str(),true, false);
-            cout <<"new timestamp: "<< stimestamp << std::endl;
+            //cout <<"new timestamp: "<< stimestamp << std::endl;
             email_file << stimestamp;
             email_file.seekg(readpos+currentline.length());
             matches++;
             previousmatch = true;
 
         }
-        else if (!previousmatch)
+        else if (!previousmatch) //if current single line did not find timestamp, concatenate it with the previous line and search again
+            //Because Microsoft thought it is smart to put linebreaks into timestamps coming from their servers.
+            //Not cool, Microsoft!
         {
             memoryForFileLines = "";
             memoryForFileLines.append(previousline);
