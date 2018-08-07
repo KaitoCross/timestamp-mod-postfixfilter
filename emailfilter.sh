@@ -21,7 +21,7 @@ cd $INSPECT_DIR || {
 cat >in.$$ || {
     echo Cannot save mail to file; exit $EX_TEMPFAIL; }
 
-#Specify your content filter here.
+#Adjust the path to your dmail-filter executable!
 /srv/dmail/timestamp-mod-postfixfilter/dmail-filter in.$$ || {
    echo Message content rejected; exit $EX_UNAVAILABLE; }
 
