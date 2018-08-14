@@ -15,12 +15,12 @@ ELPSY : used for connection keepalive
 KONGROO : used for connection keepalive
 ```
 
-##Setup
+## Setup
 Configure your postfix server like outlined on http://www.postfix.org/FILTER_README.html#simple_filter using the emailfilter.sh script provided here. Follow their instructions from `Once you're satisfied with the content filtering script:` onwards.
 
 Turn on the filter for emails arriving via smtp (as demonstrated on the postfix website above), smtps and submission (comparable to how the smtp filter was set up in the instructions in the website above). Please edit the path to dmail-filter mentioned in emailfilter.sh according to your storage location!
 
-####Setup example
+#### Setup example
 
 For example, i added this to postfix's /etc/postfix/master.cf at the end:
 ```
