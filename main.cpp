@@ -32,6 +32,8 @@ int main(int argc, char* argv[]) {
     string currentline ="Hello world";
     string previousline = "";
     string memoryForFileLines="";
+    struct timeval timeout;
+    timeout.tv_usec=500;
     smatch results;
     fstream email_file;
     email_file.open(filename,fstream::in | fstream::out);
@@ -44,6 +46,7 @@ int main(int argc, char* argv[]) {
     string stimestamp;
     cout << stimestamp << "\n";
     int sockfd = socket(AF_INET,SOCK_DGRAM,0);
+    setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO,&timeout,sizeof(timeout));
     struct sockaddr_in serv, client;
     serv.sin_family = AF_INET;
     serv.sin_port = htons(1337);
@@ -52,8 +55,11 @@ int main(int argc, char* argv[]) {
     socklen_t m = sizeof(serv);
     char buffer[10] = "REQTO";
     char buffer2[5]="0000";
-    int sent = sendto(sockfd,buffer,5,0,(struct sockaddr *)&serv,m);
-    recvfrom(sockfd,buffer,10,0,(struct sockaddr *)&client,&l);
+    int received;
+    do {
+        sendto(sockfd, buffer, 5, 0, (struct sockaddr *) &serv, m);
+        received = recvfrom(sockfd,buffer,10,0,(struct sockaddr *)&client,&l);
+    } while (received < 0);
     char *ptr;
 
     if (strncmp(buffer,"RCVTO",5) == 0)
